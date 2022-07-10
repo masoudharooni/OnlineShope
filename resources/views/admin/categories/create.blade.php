@@ -11,7 +11,7 @@
                         <h1 class="m-0 text-dark">
                             <a class="nav-link drawer" data-widget="pushmenu" href="#"><i class="fa fa-bars"></i></a>
                             دسته بندی ها / افزودن
-                            <a class="btn btn-primary float-left text-white py-2 px-4" href="category.php">بازگشت به صفحه
+                            <a class="btn btn-primary float-left text-white py-2 px-4" href="{{ route('admin.categories.all') }}">بازگشت به صفحه
                                 دسته بندی ها</a>
                         </h1>
                     </div><!-- /.col -->
@@ -26,14 +26,7 @@
                 <div class="row mt-5">
                     <div class="col-md-12">
                         <div class="card card-defualt">
-                            @if (session('success'))
-                                <div class='alert alert-success'>{{ session('success') }}</div>
-                            @endif
-
-                            @if (session('failed'))
-                                <div class='alert alert-danger'>{{ session('failed') }}</div>
-                            @endif
-
+                            @include('layouts.errors.message')
                             <!-- form start -->
                             <form action="{{ route('admin.categories.store') }}" method="post">
                                 @csrf

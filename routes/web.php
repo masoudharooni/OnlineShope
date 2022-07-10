@@ -7,7 +7,8 @@ Route::prefix('admin')->group(function () {
 
     Route::prefix('categories')->group(function () {
 
-        Route::get('create', [CategoriesController::class, 'create']);
+        Route::get('', [CategoriesController::class, 'all'])->name('admin.categories.all');
+        Route::get('create', [CategoriesController::class, 'create'])->name('admin.categories.create');
         Route::post('', [CategoriesController::class, 'store'])->name('admin.categories.store');
     });
 });
