@@ -63,13 +63,16 @@
                                                 <td>{{ $cat['title'] }}</td>
                                                 <td>{{ new Verta($cat['created_at']) }}</td>
                                                 <td>
-                                                    <a href="#" class="btn btn-default btn-icons"><i
-                                                            class="fa fa-edit"></i></a>
+                                                    <a href="{{ route('admin.categories.update', $cat['id']) }}"
+                                                        class="btn btn-default btn-icons">
+                                                        <i class="fa fa-edit"></i>
+                                                    </a>
                                                     <form action="{{ route('admin.categories.delete', $cat['id']) }}"
                                                         method="POST" style="display: inline">
                                                         @csrf
                                                         @method('delete')
-                                                        <button type="submit" class="btn btn-default btn-icons"><i class="fa fa-trash"></i></button>
+                                                        <button type="submit" class="btn btn-default btn-icons"><i
+                                                                class="fa fa-trash"></i></button>
                                                     </form>
                                                 </td>
                                             </tr>

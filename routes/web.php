@@ -12,5 +12,8 @@ Route::prefix('admin')->group(function () {
         Route::post('', [CategoriesController::class, 'store'])->name('admin.categories.store');
 
         Route::delete('{category_id}/delete', [CategoriesController::class, 'delete'])->name('admin.categories.delete');
+
+        Route::get('{category_id}/update', [CategoriesController::class, 'update'])->name('admin.categories.update');
+        Route::put('{category_id}/edit', [CategoriesController::class, 'edit'])->name('admin.categories.edit');
     });
 });
