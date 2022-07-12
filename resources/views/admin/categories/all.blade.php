@@ -23,6 +23,8 @@
 
         <!-- Main content -->
         <div class="content">
+            @include('layouts.errors.message')
+
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-12">
@@ -44,7 +46,6 @@
                             </div>
                             <!-- /.card-header -->
                             <div class="table table-striped table-valign-middle mb-0">
-                                @include('layouts.errors.message')
                                 <table class="table table-hover mb-0">
                                     <tbody>
 
@@ -60,12 +61,16 @@
                                                 <td>{{ $cat['id'] }}</td>
                                                 <td>{{ $cat['slug'] }}</td>
                                                 <td>{{ $cat['title'] }}</td>
-                                                <td>{{ (new Verta($cat['created_at'])) }}</td>
+                                                <td>{{ new Verta($cat['created_at']) }}</td>
                                                 <td>
                                                     <a href="#" class="btn btn-default btn-icons"><i
                                                             class="fa fa-edit"></i></a>
-                                                    <a href="#" class="btn btn-default btn-icons"><i
-                                                            class="fa fa-trash"></i></a>
+                                                    <form action="{{ route('admin.categories.delete', $cat['id']) }}"
+                                                        method="POST" style="display: inline">
+                                                        @csrf
+                                                        @method('delete')
+                                                        <button type="submit" class="btn btn-default btn-icons"><i class="fa fa-trash"></i></button>
+                                                    </form>
                                                 </td>
                                             </tr>
                                         @endforeach

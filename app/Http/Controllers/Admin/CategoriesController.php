@@ -27,7 +27,14 @@ class CategoriesController extends Controller
 
     public function all()
     {
-        $categories = Category::paginate(3);
+        $categories = Category::paginate(7);
         return view('admin.categories.all', compact('categories'));
+    }
+
+    public function delete(int $category_id)
+    {
+        $category = Category::find($category_id);
+        $category->delete();
+        return back()->with('success', "دسته بندی '{$category['title']}' حذف شد.");
     }
 }
