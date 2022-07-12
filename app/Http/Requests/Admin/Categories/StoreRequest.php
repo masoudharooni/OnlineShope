@@ -23,15 +23,9 @@ class StoreRequest extends FormRequest
      */
     public function rules()
     {
-        $rules = [
+        return [
             'slug' => 'required|unique:categories,slug',
             'title' => 'required'
         ];
-
-        $messages = [
-            'required'  => 'فیلدهای زیر را کامل کنید.',
-            'unique'    => 'این نامک قبلا ساخته شده است.'
-        ];
-        $this->validate($rules, $messages);
     }
 }

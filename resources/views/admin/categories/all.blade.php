@@ -60,7 +60,7 @@
                                                 <td>{{ $cat['id'] }}</td>
                                                 <td>{{ $cat['slug'] }}</td>
                                                 <td>{{ $cat['title'] }}</td>
-                                                <td>{{ $cat['created_at'] }}</td>
+                                                <td>{{ (new Verta($cat['created_at'])) }}</td>
                                                 <td>
                                                     <a href="#" class="btn btn-default btn-icons"><i
                                                             class="fa fa-edit"></i></a>
@@ -78,11 +78,7 @@
                         <!-- /.card -->
                         <div class="d-flex justify-content-center">
                             <ul class="pagination mt-3">
-                                <li class="page-item"><a class="page-link" href="#">«</a></li>
-                                <li class="page-item"><a class="page-link" href="#">۱</a></li>
-                                <li class="page-item"><a class="page-link" href="#">۲</a></li>
-                                <li class="page-item"><a class="page-link" href="#">۳</a></li>
-                                <li class="page-item"><a class="page-link" href="#">»</a></li>
+                                {{ $categories->links() }}
                             </ul>
                         </div>
                     </div>

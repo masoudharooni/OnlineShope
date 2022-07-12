@@ -16,8 +16,6 @@ class CategoriesController extends Controller
 
     public function store(StoreRequest $request)
     {
-        # Convert to a standard slug
-        // $slug = preg_replace('#[ -]+#', '-', $request->slug);
         $validatedData = $request->validated();
         $createdCategory = Category::create([
             'slug' => $validatedData['slug'], 'title' => $validatedData['title']
@@ -29,7 +27,7 @@ class CategoriesController extends Controller
 
     public function all()
     {
-        $categories = Category::all();
+        $categories = Category::paginate(3);
         return view('admin.categories.all', compact('categories'));
     }
 }
