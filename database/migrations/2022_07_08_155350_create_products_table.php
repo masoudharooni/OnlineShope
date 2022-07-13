@@ -23,9 +23,9 @@ return new class extends Migration
 
             $table->char('title', 255);
             $table->text('description');
-            $table->char('thumbnail_url', 255);
-            $table->char('demo_url', 255);
-            $table->char('source_url', 255);
+            $table->char('thumbnail_url', 255)->nullable();
+            $table->char('demo_url', 255)->nullable();
+            $table->char('source_url', 255)->nullable();
             $table->unsignedInteger('price');
             $table->timestamps();
         });
