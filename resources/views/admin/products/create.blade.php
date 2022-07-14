@@ -11,7 +11,8 @@
                         <h1 class="m-0 text-dark">
                             <a class="nav-link drawer" data-widget="pushmenu" href="#"><i class="fa fa-bars"></i></a>
                             محصولات / افزودن
-                            <a class="btn btn-primary float-left text-white py-2 px-4" href="products.php">بازگشت به صفحه
+                            <a class="btn btn-primary float-left text-white py-2 px-4"
+                                href="{{ route('admin.products.all') }}">بازگشت به صفحه
                                 محصولات</a>
                         </h1>
                     </div><!-- /.col -->

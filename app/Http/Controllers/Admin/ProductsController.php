@@ -32,20 +32,43 @@ class ProductsController extends Controller
             'price'         => $validatedData['price']
         ]);
 
-        $basePath = 'products/' . $createdProduct->id . "/";
+        try {
+            $basePath = 'products/' . $createdProduct->id . "/";
 
-        # uploading process
-        $thumbnail_url = Image::upload($validatedData['thumbnail_url'], 'thumbnail', $basePath);
-        $demo_url      = Image::upload($validatedData['demo_url'], 'demo', $basePath);
-        $source_url    = Image::upload($validatedData['source_url'], 'source', $basePath);
+            # uploading process
+            $thumbnail_url = Image::upload($validatedData['thumbnail_url'], 'thumbnail', $basePath);
+            $demo_url      = Image::upload($validatedData['demo_url'], 'demo', $basePath);
+            $source_url    = Image::upload($validatedData['source_url'], 'source', $basePath);
 
-        $result = $createdProduct->update([
-            'thumbnail_url' => $thumbnail_url,
-            'demo_url'      => $demo_url,
-            'source_url'    => $source_url
-        ]);
-        if (!$result)
-            return back()->with('failed', 'محصول مورد نظر ساخته نشد.');
-        return back()->with('success', 'محصول مورد نظر با موفقیت ساخته شد.');
+            $updatedProduct = $createdProduct->update([
+                'thumbnail_url' => $thumbnail_url,
+                'demo_url'      => $demo_url,
+                'source_url'    => $source_url
+            ]);
+            if (!$updatedProduct)
+                throw new \Exception('failed', 'محصول مورد نظر ساخته نشد.');
+
+            return back()->with('success', 'محصول مورد نظر با موفقیت ساخته شد.');
+        } catch (\Exception $e) {
+            return back()->with('failed', $e->getMessage());
+        }
+    }
+
+    public function all()
+    {
+        $products = Product::paginate(7);
+        return view('admin.products.all', compact('products'));
+    }
+
+    public function demoDownload(int $product_id)
+    {
+        $product = Product::findOrFail($product_id);
+        return response()->download(public_path($product->demo_url));
+    }
+
+    public function sourceDownload(int $product_id)
+    {
+        $product = Product::findOrFail($product_id);
+        return response()->download(storage_path('app/local_storage/' . $product->source_url));
     }
 }
