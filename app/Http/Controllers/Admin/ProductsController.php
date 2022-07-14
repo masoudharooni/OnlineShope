@@ -71,4 +71,12 @@ class ProductsController extends Controller
         $product = Product::findOrFail($product_id);
         return response()->download(storage_path('app/local_storage/' . $product->source_url));
     }
+
+    public function delete(int $product_id)
+    {
+        $result = Product::find($product_id)->delete();
+        if (!$result)
+            return back()->with('failed', " متاسفانه محصول حذف نشد، مجددا تلاش کنید.");
+        return back()->with('success', "محصول با موفقیت حذف شد.");
+    }
 }

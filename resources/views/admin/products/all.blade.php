@@ -83,8 +83,14 @@
                                                 <td>
                                                     <a href="#" class="btn btn-default btn-icons"><i
                                                             class="fa fa-edit"></i></a>
-                                                    <a href="#" class="btn btn-default btn-icons"><i
-                                                            class="fa fa-trash"></i></a>
+                                                    <form action="{{ route('admin.products.delete', $pro->id) }}"
+                                                        method="post">
+                                                        @csrf
+                                                        @method('delete')
+                                                        <button type="submit" class="btn btn-default btn-icons">
+                                                            <i class="fa fa-trash"></i>
+                                                        </button>
+                                                    </form>
                                                 </td>
                                             </tr>
                                         @endforeach
