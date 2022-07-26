@@ -81,8 +81,8 @@
                                                 <td>{{ $pro->price }} تومان</td>
                                                 <td>{{ new Verta($pro->created_at) }}</td>
                                                 <td>
-                                                    <a href="#" class="btn btn-default btn-icons"><i
-                                                            class="fa fa-edit"></i></a>
+                                                    <a href="{{ route('admin.products.update', $pro->id) }}"
+                                                        class="btn btn-default btn-icons"><i class="fa fa-edit"></i></a>
                                                     <form action="{{ route('admin.products.delete', $pro->id) }}"
                                                         method="post">
                                                         @csrf
