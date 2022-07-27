@@ -29,8 +29,10 @@
                         <div class="card card-defualt">
                             @include('layouts.errors.message')
                             <!-- form start -->
-                            <form action="{{ route('admin.products.store') }}" method="POST" enctype="multipart/form-data">
+                            <form action="{{ route('admin.products.edit', $product->id) }}" method="POST"
+                                enctype="multipart/form-data">
                                 @csrf
+                                @method('put')
                                 <div class="card-body">
                                     <div class="row">
                                         <div class="col-md-6">
@@ -68,6 +70,7 @@
                                                 <a href="{{ route('admin.products.thumbnail.download', $product->id) }}">
                                                     <i style="font-size: 25px" class="fa fa-link"></i>
                                                 </a>
+                                                <img src="/{{ $product->thumbnail_url }}" alt="" width="40px">
                                             </div>
                                         </div>
                                         <div class="col-md-4">
@@ -77,6 +80,7 @@
                                                 <a href="{{ route('admin.products.demo.download', $product->id) }}">
                                                     <i style="font-size: 25px" class="fa fa-link"></i>
                                                 </a>
+                                                <img src="/{{ $product->demo_url }}" alt="" width="40px">
                                             </div>
                                         </div>
                                         <div class="col-md-4">
@@ -92,7 +96,7 @@
                                     </div>
                                     <div class="form-group">
                                         <label>توضیحات</label>
-                                        <textarea name="description" id="editor">لطفا متن مورد نظر خودتان را وارد کنید</textarea>
+                                        <textarea name="description" id="editor">{{ $product->description }}</textarea>
                                     </div>
                                 </div>
                                 <!-- /.card-body -->
