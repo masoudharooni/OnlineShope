@@ -17,7 +17,14 @@ class Image
         return $path;
     }
 
-    
+    public static function delete(object $product, string $imageName, bool $publicAccess = true)
+    {
+        if ($publicAccess) {
+            File::delete(public_path($product->$imageName));
+        } else {
+            File::delete(storage_path('app/local_storage/' . $product->$imageName));
+        }
+    }
 
     private static function diskCreator(bool $publicAccess): string
     {
