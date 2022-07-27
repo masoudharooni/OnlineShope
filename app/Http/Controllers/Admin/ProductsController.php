@@ -6,10 +6,9 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\Products\StoreRequest;
 use App\Http\Requests\Admin\Products\UpdateRequest;
 use App\Models\Category;
+use App\Utilities\Uploaders\Product as ProductUploader;
 use App\Models\Product;
 use App\Models\User;
-use App\Utilities\Uploaders\Image;
-use Illuminate\Support\Facades\File;
 
 class ProductsController extends Controller
 {
@@ -30,27 +29,7 @@ class ProductsController extends Controller
             'description'   => $validatedData['description'],
             'price'         => $validatedData['price']
         ]);
-
-        try {
-            $basePath = 'products/' . $createdProduct->id . "/";
-
-            # uploading process
-            $thumbnail_url = Image::upload($validatedData['thumbnail_url'], 'thumbnail', $basePath);
-            $demo_url      = Image::upload($validatedData['demo_url'], 'demo', $basePath);
-            $source_url    = Image::upload($validatedData['source_url'], 'source', $basePath);
-
-            $updatedProduct = $createdProduct->update([
-                'thumbnail_url' => $thumbnail_url,
-                'demo_url'      => $demo_url,
-                'source_url'    => $source_url
-            ]);
-            if (!$updatedProduct)
-                throw new \Exception('failed', 'محصول مورد نظر ساخته نشد.');
-
-            return back()->with('success', 'محصول مورد نظر با موفقیت ساخته شد.');
-        } catch (\Exception $e) {
-            return back()->with('failed', $e->getMessage());
-        }
+        return ProductUploader::storeUploader($createdProduct, $validatedData);
     }
 
     public function all()
@@ -103,28 +82,6 @@ class ProductsController extends Controller
             'description'   => $validatedData['description'],
             'price'         => $validatedData['price']
         ]);
-
-        try {
-            $basePath = 'products/' . $product_id . "/";
-
-            if ($_FILES['thumbnail_url']['size'] != 0) {
-                $thumbnail_url = Image::upload($validatedData['thumbnail_url'], 'thumbnail', $basePath);
-                File::delete(public_path($product->thumbnail_url));
-                $product->update(['thumbnail_url' => $thumbnail_url]);
-            }
-            if ($_FILES['demo_url']['size'] != 0) {
-                $demo_url = Image::upload($validatedData['demo_url'], 'demo', $basePath);
-                File::delete(public_path($product->demo_url));
-                $product->update(['demo_url' => $demo_url]);
-            }
-            if ($_FILES['source_url']['size'] != 0) {
-                $source_url = Image::upload($validatedData['source_url'], 'source', $basePath);
-                File::delete(storage_path('app/local_storage/' . $product->source_url));
-                $product->update(['source_url' => $source_url]);
-            }
-            return back()->with('success', 'محصول مورد نظر با موفقیت ویرایش شد.');
-        } catch (\Exception $e) {
-            throw new \Exception("Error Processing Request: {$e->getMessage()}, in line: {$e->getLine()}, in file: {$e->getFile()}");
-        }
+        return ProductUploader::editUploader($product, $validatedData);
     }
 }

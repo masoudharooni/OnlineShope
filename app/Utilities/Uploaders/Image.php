@@ -7,31 +7,28 @@ use Illuminate\Support\Facades\Storage;
 
 class Image
 {
-    public static function upload($image, $type, $basePath): string|false
+    public static function upload(object $image, string $basePath, bool $publicAccess = true): string|\Exception
     {
-        if (!self::imageTypeValidator($type))
-            dd('type file is not allowed!');
-        $diskName = self::diskNameCreator($type);
-
-        $path = $basePath . $type . "_" . $image->getClientOriginalName();
+        $diskName = self::diskCreator($publicAccess);
+        $path = self::pathCreator($basePath, $image);
         $uploadResult = Storage::disk($diskName)->put($path, File::get($image));
         if (!$uploadResult)
-            return false;
+            return throw new \Exception('Upload failed!');
         return $path;
     }
 
-    private static function imageTypeValidator(string $type): bool
-    {
-        if (!in_array($type, ['thumbnail', 'source', 'demo']))
-            return false;
-        return true;
-    }
+    
 
-    private static function diskNameCreator(string $type): string
+    private static function diskCreator(bool $publicAccess): string
     {
         $diskName = 'public_storage';
-        if ($type == 'source')
+        if (!$publicAccess)
             $diskName = 'local_storage';
         return $diskName;
+    }
+
+    private static function pathCreator(string $basePath, object $image): string
+    {
+        return $basePath . "_" . $image->getClientOriginalName();
     }
 }
