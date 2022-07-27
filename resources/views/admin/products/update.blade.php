@@ -70,7 +70,7 @@
                                                 <a href="{{ route('admin.products.thumbnail.download', $product->id) }}">
                                                     <i style="font-size: 25px" class="fa fa-link"></i>
                                                 </a>
-                                                <img src="/{{ $product->thumbnail_url }}" alt="" width="40px">
+                                                <img src="/{{ $product->thumbnail_url }}" alt="تصویر لود نشد!" width="40px">
                                             </div>
                                         </div>
                                         <div class="col-md-4">
@@ -80,7 +80,7 @@
                                                 <a href="{{ route('admin.products.demo.download', $product->id) }}">
                                                     <i style="font-size: 25px" class="fa fa-link"></i>
                                                 </a>
-                                                <img src="/{{ $product->demo_url }}" alt="" width="40px">
+                                                <img src="/{{ $product->demo_url }}" alt="تصویر لود نشد!" width="40px">
                                             </div>
                                         </div>
                                         <div class="col-md-4">

@@ -9,8 +9,7 @@ use App\Models\Category;
 use App\Models\Product;
 use App\Models\User;
 use App\Utilities\Uploaders\Image;
-use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\File;
 
 class ProductsController extends Controller
 {
@@ -110,14 +109,17 @@ class ProductsController extends Controller
 
             if ($_FILES['thumbnail_url']['size'] != 0) {
                 $thumbnail_url = Image::upload($validatedData['thumbnail_url'], 'thumbnail', $basePath);
+                File::delete(public_path($product->thumbnail_url));
                 $product->update(['thumbnail_url' => $thumbnail_url]);
             }
             if ($_FILES['demo_url']['size'] != 0) {
                 $demo_url = Image::upload($validatedData['demo_url'], 'demo', $basePath);
+                File::delete(public_path($product->demo_url));
                 $product->update(['demo_url' => $demo_url]);
             }
             if ($_FILES['source_url']['size'] != 0) {
                 $source_url = Image::upload($validatedData['source_url'], 'source', $basePath);
+                File::delete(storage_path('app/local_storage/' . $product->source_url));
                 $product->update(['source_url' => $source_url]);
             }
             return back()->with('success', 'محصول مورد نظر با موفقیت ویرایش شد.');
