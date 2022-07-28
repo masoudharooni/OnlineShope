@@ -17,13 +17,23 @@ class Image
         return $path;
     }
 
-    public static function delete(object $product, string $imageName, bool $publicAccess = true)
+    public static function delete(object $product, array $imageNames, bool $publicAccess = true)
     {
         if ($publicAccess) {
-            File::delete(public_path($product->$imageName));
+            foreach ($imageNames as $name) {
+                File::delete(public_path($product->$name));
+            }
         } else {
-            File::delete(storage_path('app/local_storage/' . $product->$imageName));
+            foreach ($imageNames as $name) {
+                File::delete(storage_path('app/local_storage/' . $product->$name));
+            }
         }
+    }
+
+    public static function deleteAll(object $product)
+    {
+        self::delete($product, ['thumbnail_url', 'demo_url']);
+        self::delete($product, ['source_url'], false);
     }
 
     private static function diskCreator(bool $publicAccess): string

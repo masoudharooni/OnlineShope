@@ -9,6 +9,7 @@ use App\Models\Category;
 use App\Utilities\Uploaders\Product as ProductUploader;
 use App\Models\Product;
 use App\Models\User;
+use App\Utilities\Uploaders\Image;
 
 class ProductsController extends Controller
 {
@@ -59,7 +60,9 @@ class ProductsController extends Controller
 
     public function delete(int $product_id)
     {
-        $result = Product::find($product_id)->delete();
+        $product = Product::find($product_id);
+        $result = $product->delete();
+        Image::deleteAll($product);
         if (!$result)
             return back()->with('failed', " متاسفانه محصول حذف نشد، مجددا تلاش کنید.");
         return back()->with('success', "محصول با موفقیت حذف شد.");

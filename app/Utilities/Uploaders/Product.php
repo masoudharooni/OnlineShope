@@ -3,7 +3,6 @@
 namespace App\Utilities\Uploaders;
 
 use App\Utilities\Uploaders\Image;
-use Illuminate\Support\Facades\File;
 
 class Product
 {
@@ -44,17 +43,17 @@ class Product
 
             if (isset($validatedData['thumbnail_url'])) {
                 $thumbnail_url = Image::upload($validatedData['thumbnail_url'], $basePath);
-                Image::delete($product, 'thumbnail_url');
+                Image::delete($product, ['thumbnail_url']);
                 self::$editData += ['thumbnail_url' => $thumbnail_url];
             }
             if (isset($validatedData['demo_url'])) {
                 $demo_url = Image::upload($validatedData['demo_url'], $basePath);
-                Image::delete($product, 'demo_url');
+                Image::delete($product, ['demo_url']);
                 self::$editData += ['demo_url' => $demo_url];
             }
             if (isset($validatedData['source_url'])) {
                 $source_url = Image::upload($validatedData['source_url'], $basePath, false);
-                Image::delete($product, 'source_url', false);
+                Image::delete($product, ['source_url'], false);
                 self::$editData += ['source_url' => $source_url];
             }
             #upload process
