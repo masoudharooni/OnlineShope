@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\Users\StoreRequest;
 use App\Models\User;
-use Illuminate\Http\Request;
 
 class UsersController extends Controller
 {
@@ -19,9 +19,19 @@ class UsersController extends Controller
         return view('admin.users.create');
     }
 
-    public function store(Request $request)
+    public function store(StoreRequest $request)
     {
-        dd($request);
+        $validatedData = $request->validated();
+        // dd($validatedData);
+        $user = User::create([
+            'name'           => $validatedData['name'],
+            'email'          => $validatedData['email'],
+            'mobile'         => $validatedData['mobile'],
+            'role'           => $validatedData['role']
+        ]);
+        if ($user)
+            return back()->with('success', 'گاربر با موفقیت ساخته شد');
+        return back()->with('failed', 'کاربر ساخته نشد، مجددا امتحان کنید.');
     }
 
     public function update()

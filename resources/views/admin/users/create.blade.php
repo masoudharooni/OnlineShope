@@ -21,6 +21,7 @@
         <!-- /.content-header -->
 
         <!-- Main content -->
+        @include('layouts.errors.message')
         <div class="content">
             <div class="container-fluid">
                 <div class="row mt-5">
@@ -36,21 +37,21 @@
                                             <div class="form-group">
                                                 <label>نام و نام خانوادگی</label>
                                                 <input type="text" class="form-control" name="name"
-                                                    placeholder="نام و نام خانوادگی را وارد کنید">
+                                                    placeholder="نام و نام خانوادگی را وارد کنید" required>
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label>ایمیل</label>
                                                 <input type="email" class="form-control" name="email"
-                                                    placeholder="ایمیل را وارد کنید">
+                                                    placeholder="ایمیل را وارد کنید" required>
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label>موبایل</label>
                                                 <input type="tel" class="form-control" name="mobile"
-                                                    placeholder="موبایل را وارد کنید">
+                                                    placeholder="موبایل را وارد کنید" required>
                                             </div>
                                         </div>
                                         <div class="col-md-6">
