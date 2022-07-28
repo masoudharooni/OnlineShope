@@ -42,7 +42,11 @@ class UsersController extends Controller
     {
     }
 
-    public function delete()
+    public function delete(int $user_id)
     {
+        $deletedUser  = User::findOrFail($user_id)->delete();
+        if ($deletedUser)
+            return back()->with('success', "کاربر مورد نظر حذف شد.");
+        return back()->with('failed', 'کاربر حذف نشد، مجددا تلاش کنید.');
     }
 }

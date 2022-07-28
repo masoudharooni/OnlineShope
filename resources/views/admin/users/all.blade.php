@@ -22,6 +22,8 @@
         </div>
         <!-- /.content-header -->
 
+        @include('layouts.errors.message')
+
         <!-- Main content -->
         <div class="content">
             <div class="container-fluid">
@@ -67,8 +69,14 @@
                                                 <td>
                                                     <a href="{{ route('admin.users.update', $user->id) }}"
                                                         class="btn btn-default btn-icons"><i class="fa fa-edit"></i></a>
-                                                    <a href="{{ route('admin.users.delete', $user->id) }}"
-                                                        class="btn btn-default btn-icons"><i class="fa fa-trash"></i></a>
+                                                    <form action="{{ route('admin.users.delete', $user->id) }}"
+                                                        method="POST">
+                                                        @csrf
+                                                        @method('delete')
+                                                        <button type="submit" class="btn btn-default btn-icons">
+                                                            <i class="fa fa-trash"></i>
+                                                        </button>
+                                                    </form>
                                                 </td>
                                             </tr>
                                         @endforeach
