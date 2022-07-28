@@ -6,7 +6,8 @@
 
             <!-- Sidebar Menu -->
             <nav class="mt-2">
-                <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+                <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
+                    data-accordion="false">
                     <li class="nav-item">
                         <a href="index.php" class="nav-link text-center mb-4">
                             <img src="/images/icons/logo-01.png" style="filter: brightness(0) invert(1);">
@@ -42,7 +43,7 @@
                         </ul>
                     </li>
                     <li class="nav-item has-treeview">
-                        <a href="#" class="nav-link">
+                        <a href="" class="nav-link">
                             <i class="nav-icon fa fa-user"></i>
                             <p>
                                 مدیریت کاربران
@@ -51,7 +52,7 @@
                         </a>
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
-                                <a href="users-add.php" class="nav-link">
+                                <a href="{{ route('admin.users.create') }}" class="nav-link">
                                     <i class="fa fa-plus nav-icon"></i>
                                     <p>افزودن</p>
                                 </a>
@@ -59,7 +60,7 @@
                         </ul>
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
-                                <a href="users.php" class="nav-link">
+                                <a href="{{ route('admin.users.all') }}" class="nav-link">
                                     <i class="fa fa-list nav-icon"></i>
                                     <p>لیست</p>
                                 </a>
