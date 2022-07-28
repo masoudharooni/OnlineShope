@@ -70,7 +70,7 @@
                                                     <a href="{{ route('admin.users.update', $user->id) }}"
                                                         class="btn btn-default btn-icons"><i class="fa fa-edit"></i></a>
                                                     <form action="{{ route('admin.users.delete', $user->id) }}"
-                                                        method="POST">
+                                                        method="POST" style="display: inline">
                                                         @csrf
                                                         @method('delete')
                                                         <button type="submit" class="btn btn-default btn-icons">

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\Users\StoreRequest;
+use App\Http\Requests\Admin\Users\UpdateRequest;
 use App\Models\User;
 
 class UsersController extends Controller
@@ -34,12 +35,25 @@ class UsersController extends Controller
         return back()->with('failed', 'کاربر ساخته نشد، مجددا امتحان کنید.');
     }
 
-    public function update()
+    public function update(int $user_id)
     {
+        $user = User::findOrFail($user_id);
+        return view('admin.users.update', compact('user'));
     }
 
-    public function edit()
+    public function edit(UpdateRequest $request, int $user_id)
     {
+        $validatedData = $request->validated();
+        $user = User::findOrFail($user_id);
+        $updatedUser = $user->update([
+            'name'           => $validatedData['name'],
+            'email'           => $validatedData['email'],
+            'mobile'           => $validatedData['mobile'],
+            'role'           => $validatedData['role']
+        ]);
+        if ($updatedUser)
+            return back()->with('success', 'کاربر با موفقیت ویرایش شد');
+        return back()->with('failed', 'مشکلی پیش آمده، مجددا تلاش کنید.');
     }
 
     public function delete(int $user_id)
